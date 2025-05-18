@@ -1,0 +1,19 @@
+{
+  "name": "amazon-price-tracker",
+  "version": "1.0.0",
+  "description": "Web automation for tracking Amazon product prices and stock availability using Playwright.",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^29.7.0",
+    "nodemailer": "^7.0.3",
+    "playwright": "^1.52.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.18"
+  }
+}
