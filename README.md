@@ -75,10 +75,6 @@ To run the project in a Docker container, follow these steps:
 
 Contributions are welcome! Please fork the repository, create a feature branch, and submit a pull request. Ensure you add tests for new features and keep the code modular.
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ---
 
 Happy automating! 🛒🤖
