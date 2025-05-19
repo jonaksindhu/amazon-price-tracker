@@ -1,0 +1,19 @@
+{
+  "products": [
+    {
+      "name": "MacBook Pro",
+      "keywords": ["macbook", "pro"],
+      "minResults": 5
+    },
+    {
+      "name": "iPhone 15",
+      "keywords": ["iphone", "15"],
+      "minResults": 5
+    },
+    {
+      "name": "Samsung Galaxy S24",
+      "keywords": ["samsung", "galaxy", "s24"],
+      "minResults": 5
+    }
+  ]
+} 
