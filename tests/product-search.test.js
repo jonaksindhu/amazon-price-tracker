@@ -21,8 +21,11 @@ async function debugResults(page, selector) {
 
 test.describe('Amazon Product Search Tests', () => {
   test.beforeEach(async ({ page }) => {
-    // Navigate to Amazon
-    await page.goto('https://www.amazon.in', { waitUntil: 'load' });
+    // Navigate to Amazon with increased timeout
+    await page.goto('https://www.amazon.in', { 
+      waitUntil: 'networkidle',
+      timeout: 60000 
+    });
     console.log('Navigated to Amazon.in');
     
     // Accept cookies if the dialog appears
@@ -36,7 +39,10 @@ test.describe('Amazon Product Search Tests', () => {
   });
 
   test('should search for MacBook Pro on Amazon', async ({ page }) => {
-    await page.waitForSelector('#twotabsearchtextbox', { state: 'visible' });
+    await page.waitForSelector('#twotabsearchtextbox', { 
+      state: 'visible',
+      timeout: 60000 
+    });
     await page.click('#twotabsearchtextbox');
     await page.waitForTimeout(1000);
     await page.fill('#twotabsearchtextbox', 'MacBook Pro');
@@ -44,8 +50,11 @@ test.describe('Amazon Product Search Tests', () => {
     await page.press('#twotabsearchtextbox', 'Enter');
     console.log('Searched for MacBook Pro');
 
-    // Wait for search results
-    await page.waitForSelector('[data-component-type="s-search-result"]', { timeout: 30000, state: 'visible' });
+    // Wait for search results with increased timeout
+    await page.waitForSelector('[data-component-type="s-search-result"]', { 
+      timeout: 60000, 
+      state: 'visible' 
+    });
     await page.waitForTimeout(2000);
 
     // Debug output for selector
@@ -71,7 +80,10 @@ test.describe('Amazon Product Search Tests', () => {
   });
 
   test('should search for iPhone 15 on Amazon', async ({ page }) => {
-    await page.waitForSelector('#twotabsearchtextbox', { state: 'visible' });
+    await page.waitForSelector('#twotabsearchtextbox', { 
+      state: 'visible',
+      timeout: 60000 
+    });
     await page.click('#twotabsearchtextbox');
     await page.waitForTimeout(1000);
     await page.fill('#twotabsearchtextbox', 'iPhone 15');
@@ -79,8 +91,11 @@ test.describe('Amazon Product Search Tests', () => {
     await page.press('#twotabsearchtextbox', 'Enter');
     console.log('Searched for iPhone 15');
 
-    // Wait for search results
-    await page.waitForSelector('[data-component-type="s-search-result"]', { timeout: 30000, state: 'visible' });
+    // Wait for search results with increased timeout
+    await page.waitForSelector('[data-component-type="s-search-result"]', { 
+      timeout: 60000, 
+      state: 'visible' 
+    });
     await page.waitForTimeout(2000);
 
     // Debug output for selector

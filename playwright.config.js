@@ -7,6 +7,10 @@ module.exports = defineConfig({
   expect: {
     timeout: 5000
   },
+  fullyParallel: true,
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 2 : 0,
+  workers: process.env.CI ? 1 : undefined,
   use: {
     headless: false,
     slowMo: 200,
@@ -22,4 +26,10 @@ module.exports = defineConfig({
     },
   },
   reporter: 'html',
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+  ],
 }); 

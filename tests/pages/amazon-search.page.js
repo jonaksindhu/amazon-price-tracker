@@ -3,11 +3,11 @@ class AmazonSearchPage {
     this.page = page;
     this.searchInput = 'input#twotabsearchtextbox';
     this.searchButton = 'input#nav-search-submit-button';
-    this.searchResults = 'div.s-main-slot.s-result-list';
+    this.searchResults = '[data-component-type="s-search-result"]';
     this.productTitleSelectors = [
-      'div.s-main-slot.s-result-list > div[data-component-type="s-search-result"] h2 a span',
-      'div.s-main-slot.s-result-list > div[data-component-type="s-search-result"] h2',
-      'div.s-main-slot.s-result-list > div[data-component-type="s-search-result"] .a-size-medium'
+      '[data-component-type="s-search-result"] h2 a span',
+      '[data-component-type="s-search-result"] h2',
+      '[data-component-type="s-search-result"] .a-size-medium'
     ];
   }
 
