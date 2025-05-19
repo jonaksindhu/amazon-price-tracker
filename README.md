@@ -1,40 +1,84 @@
-Web automation for tracking Amazon product prices and stock availability using Playwright.
+# Amazon Price Tracker 🚀
 
+A small automation project using Playwright to track Amazon product prices and stock availability.
 
-Amazon Price Tracker 🚀
+## Overview
 
-Hey! This is a simple project I started to track prices and stock on Amazon using Playwright.
-Just made the first test case today and set up the folder structure.
+This project automates the process of searching for products on Amazon, checking their prices, and verifying stock availability. It uses Playwright for browser automation and is designed to be easily extended with additional features.
 
-I’ll be adding more stuff little by little, day by day — like price checking, reports, alerts, and who knows what else! 😄
+## Features
 
-What it does now
+- Opens Amazon website
+- Searches for a product
+- Checks the first product title to ensure results are displayed
+- Organized folder structure for tests, configuration, reports, and scripts
 
-Opens Amazon website
-Searches for a product
-Checks the first product title to make sure results show up
-Has folders for tests, config, reports, scripts
-What’s coming soon
+## Upcoming Features
 
-Get actual prices and check if product is in stock
-Make nice reports you can open in browser
-Send emails when price drops (would be cool right?)
-Put project in Docker so its easy to run anywhere
-Setup CI/CD pipeline with Jenkins or Github actions
-How to try it
+- Get actual prices and check if products are in stock
+- Generate browser-based reports
+- Send email alerts when prices drop
+- Docker support for easy deployment
+- CI/CD pipeline integration with Jenkins or GitHub Actions
 
-Clone the repo
-Run npm install
-Run tests with npx playwright test
-Watch it open amazon and do the search for you
-Why I’m doing this
+## Getting Started
 
-Cause checking amazon all the time is annoying and slow — automation ftw!
-Also wanna get better at Playwright and testing overall.
+### Prerequisites
 
-Wanna help?
+- Node.js (v14 or higher)
+- npm
 
-Open issues, send feature ideas, or just star the repo if you like it!
-I’m adding stuff everyday so stay tuned :)
+### Installation
 
-Thanks for dropping by! 🙌
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/amazon-price-tracker.git
+   cd amazon-price-tracker
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Run the tests:
+   ```bash
+   npx playwright test
+   ```
+
+## Advanced Usage
+
+- **Headless Mode**: For faster execution, set `headless: true` in `playwright.config.js` or run with `npx playwright test --headed=false`.
+- **Browser Cleanup**: Playwright automatically closes browsers after tests. Avoid manual `page.close()` calls.
+- **Test Structure**: Tests are organized using the Page Object Model. Add new test files in the `tests/` folder and use the `pages/` subfolder for reusable page objects.
+- **Troubleshooting**: If tests fail due to timeouts, increase the timeout in `playwright.config.js` or check your network connection.
+
+## CI/CD
+
+This project is set up for continuous integration and deployment. The CI/CD pipeline is configured to run tests automatically on every push to the main branch. You can view the pipeline status in the GitHub Actions tab.
+
+## Docker
+
+To run the project in a Docker container, follow these steps:
+
+1. Build the Docker image:
+   ```bash
+   docker build -t amazon-price-tracker .
+   ```
+
+2. Run the container:
+   ```bash
+   docker run amazon-price-tracker
+   ```
+
+## Contributing
+
+Contributions are welcome! Please fork the repository, create a feature branch, and submit a pull request. Ensure you add tests for new features and keep the code modular.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+Happy automating! 🛒🤖
