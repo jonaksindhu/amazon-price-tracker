@@ -58,8 +58,9 @@ amazon-price-tracker/
 │   ├── specs/                    # Test specifications
 │   │   ├── product-search.spec.js
 │   │   └── price-check.spec.js
-│   └── utils/                    # Test utilities
-│       └── test-utils.js
+│   ├── utils/                    # Test utilities
+│   │   └── test-utils.js
+│   └── resources/               # Test resources
 ├── pages/                        # Page Object Models
 │   └── AmazonSearchPage.js
 ├── docker/                       # Docker configuration
