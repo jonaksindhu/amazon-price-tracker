@@ -177,6 +177,44 @@ The project includes a `docker/Dockerfile` with the following features:
    docker logs <container_id>
    ```
 
+## CI/CD Pipeline
+
+The project includes a Jenkins pipeline (`Jenkinsfile`) that automates the build, test, and deployment process:
+
+### Pipeline Stages
+
+1. **Checkout**: Clones the repository
+2. **Install Dependencies**: Installs npm packages and Playwright browsers
+3. **Run Tests**: Executes the test suite and generates reports
+4. **Build Docker Image**: Creates a Docker image from the application
+5. **Push Docker Image**: Pushes the image to Docker Hub
+
+### Pipeline Features
+
+- Uses Node.js 18 slim Docker image for builds
+- Generates JUnit test reports
+- Publishes Playwright HTML reports
+- Builds and pushes Docker images with version tags
+- Cleans up workspace after each build
+
+### Required Jenkins Plugins
+
+- Docker Pipeline
+- JUnit
+- HTML Publisher
+- Git
+
+### Required Jenkins Credentials
+
+- `docker-hub-credentials`: Docker Hub credentials for pushing images
+
+### Running the Pipeline
+
+1. Create a new Jenkins pipeline job
+2. Configure it to use the `Jenkinsfile` from the repository
+3. Add the required credentials in Jenkins
+4. Run the pipeline manually or configure webhooks for automatic triggers
+
 ---
 
 Happy automating! 🛒🤖
