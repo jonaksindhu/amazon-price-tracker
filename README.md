@@ -138,7 +138,7 @@ Contributions are welcome! Please fork the repository, create a feature branch, 
 
 1. Build the Docker image:
    ```bash
-   docker build -t amazon-price-tracker .
+   docker build -t amazon-price-tracker -f docker/Dockerfile .
    ```
 
 2. Run the container:
@@ -148,7 +148,7 @@ Contributions are welcome! Please fork the repository, create a feature branch, 
 
 ### Docker Configuration Details
 
-The project includes a `Dockerfile` with the following features:
+The project includes a `docker/Dockerfile` with the following features:
 - Uses Node.js 18 slim image for smaller size
 - Installs only Chromium browser to reduce image size
 - Sets up proper working directory and environment variables
@@ -159,7 +159,7 @@ The project includes a `Dockerfile` with the following features:
 
 1. Build with specific tag:
    ```bash
-   docker build -t amazon-price-tracker:v1.0 .
+   docker build -t amazon-price-tracker:v1.0 -f docker/Dockerfile .
    ```
 
 2. Run in interactive mode:
