@@ -27,35 +27,70 @@ class AmazonSearchPage {
       '.a-icon-star span.a-icon-alt',
       '.a-icon-star-medium span.a-icon-alt'
     ];
+    this.maxRetries = 3;
+    this.retryDelay = 5000; // 5 seconds
   }
 
   async navigate() {
-    await this.page.goto('https://www.amazon.in', {
-      waitUntil: 'networkidle',
-      timeout: 60000
-    });
-    await this.page.waitForSelector(this.searchInput, { 
-      state: 'visible',
-      timeout: 60000 
-    });
+    let lastError;
+    for (let attempt = 1; attempt <= this.maxRetries; attempt++) {
+      try {
+        console.log(`Navigation attempt ${attempt} of ${this.maxRetries}`);
+        
+        // First try with domcontentloaded for faster initial load
+        await this.page.goto('https://www.amazon.in', {
+          waitUntil: 'domcontentloaded',
+          timeout: 30000
+        });
 
-    // Handle cookies dialog if present
-    try {
-      await this.page.waitForSelector('#sp-cc-accept', { timeout: 5000 });
-      await this.page.click('#sp-cc-accept');
-      console.log('Accepted cookies');
-    } catch (e) {
-      console.log('No cookie dialog');
-    }
+        // Then wait for the search input to be visible
+        await this.page.waitForSelector(this.searchInput, { 
+          state: 'visible',
+          timeout: 30000 
+        });
 
-    // Handle any other popups or overlays
-    try {
-      await this.page.waitForSelector('.a-button-close', { timeout: 5000 });
-      await this.page.click('.a-button-close');
-      console.log('Closed popup');
-    } catch (e) {
-      console.log('No popup to close');
+        // Handle cookies dialog if present
+        try {
+          const cookieButton = await this.page.waitForSelector('#sp-cc-accept', { timeout: 5000 });
+          if (cookieButton) {
+            await cookieButton.click();
+            console.log('Accepted cookies');
+          }
+        } catch (e) {
+          console.log('No cookie dialog or already accepted');
+        }
+
+        // Handle any other popups or overlays
+        try {
+          const closeButton = await this.page.waitForSelector('.a-button-close', { timeout: 5000 });
+          if (closeButton) {
+            await closeButton.click();
+            console.log('Closed popup');
+          }
+        } catch (e) {
+          console.log('No popup to close');
+        }
+
+        // Verify we're actually on Amazon
+        const url = this.page.url();
+        if (!url.includes('amazon.in')) {
+          throw new Error(`Navigation failed: URL ${url} is not Amazon.in`);
+        }
+
+        console.log('Successfully navigated to Amazon.in');
+        return;
+      } catch (error) {
+        lastError = error;
+        console.log(`Navigation attempt ${attempt} failed:`, error.message);
+        
+        if (attempt < this.maxRetries) {
+          console.log(`Waiting ${this.retryDelay}ms before retry...`);
+          await this.page.waitForTimeout(this.retryDelay);
+        }
+      }
     }
+    
+    throw new Error(`Failed to navigate to Amazon.in after ${this.maxRetries} attempts. Last error: ${lastError.message}`);
   }
 
   async searchProduct(productName) {

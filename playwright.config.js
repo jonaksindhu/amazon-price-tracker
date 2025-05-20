@@ -3,19 +3,20 @@ const { defineConfig, devices } = require('@playwright/test');
 
 module.exports = defineConfig({
   testDir: './tests',
-  timeout: 30000,
+  timeout: 60000,
   expect: {
-    timeout: 5000
+    timeout: 10000
   },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  retries: process.env.CI ? 2 : 1,
+  workers: process.env.CI ? 1 : 2,
   use: {
     headless: false,
-    slowMo: 200,
+    slowMo: 100,
     viewport: { width: 1280, height: 720 },
-    actionTimeout: 15000,
+    actionTimeout: 30000,
+    navigationTimeout: 30000,
     trace: 'on-first-retry',
     userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
     extraHTTPHeaders: {
@@ -24,12 +25,29 @@ module.exports = defineConfig({
       'sec-ch-ua-mobile': '?0',
       'sec-ch-ua-platform': '"macOS"',
     },
+    launchOptions: {
+      args: [
+        '--disable-dev-shm-usage',
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-gpu',
+        '--disable-web-security',
+        '--disable-features=IsolateOrigins,site-per-process',
+      ],
+    },
   },
-  reporter: 'html',
+  reporter: [
+    ['html'],
+    ['list']
+  ],
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { 
+        ...devices['Desktop Chrome'],
+        browserName: 'chromium',
+        channel: 'chrome',
+      },
     },
   ],
 }); 
