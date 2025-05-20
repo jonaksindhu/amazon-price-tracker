@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const AmazonSearchPage = require('../pages/amazon-search.page');
+const AmazonSearchPage = require('../../pages/AmazonSearchPage');
 
 async function debugResults(page, selector) {
   // Print the number of matching elements

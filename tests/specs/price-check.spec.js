@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const AmazonSearchPage = require('../pages/amazon-search.page');
+const AmazonSearchPage = require('../../pages/AmazonSearchPage');
 
 // Utility to extract price as a number from a string like '₹1,19,900'
 function parsePrice(priceStr) {
