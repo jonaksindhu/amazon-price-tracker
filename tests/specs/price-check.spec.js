@@ -80,4 +80,74 @@ test.describe('Amazon Product Price Check Tests', () => {
       }
     });
   }
+
+  // Additional test cases for common user scenarios
+  test('TC_priceCheck_VerifyDealOfTheDay_ShouldShowDiscountBadge', async () => {
+    await amazon.searchProduct('Deal of the Day');
+    const dealBadge = await page.$('.a-badge-text');
+    expect(dealBadge).toBeTruthy();
+    const dealText = await dealBadge.textContent();
+    expect(dealText).toContain('deal');
+  });
+
+  test('TC_priceCheck_VerifyPrimeEligibleProducts_ShouldShowPrimeBadge', async () => {
+    await amazon.searchProduct('Prime eligible products');
+    const primeBadge = await page.$('.s-prime-badge');
+    expect(primeBadge).toBeTruthy();
+    const primeText = await primeBadge.textContent();
+    expect(primeText).toContain('Prime');
+  });
+
+  test('TC_priceCheck_VerifyProductReviews_ShouldShowRatingStars', async () => {
+    await amazon.searchProduct('iPhone 15');
+    const ratingElement = await page.$('.a-icon-star');
+    expect(ratingElement).toBeTruthy();
+    const ratingText = await ratingElement.textContent();
+    expect(ratingText).toMatch(/out of 5/);
+  });
+
+  test('TC_priceCheck_VerifyProductAvailability_ShouldShowInStockStatus', async () => {
+    await amazon.searchProduct('MacBook Air');
+    const availabilityElement = await page.$('.a-color-success');
+    expect(availabilityElement).toBeTruthy();
+    const availabilityText = await availabilityElement.textContent();
+    expect(availabilityText).toContain('In Stock');
+  });
+
+  test('TC_priceCheck_VerifyProductCategories_ShouldShowDepartment', async () => {
+    await amazon.searchProduct('laptop');
+    const categoryElement = await page.$('.a-link-normal.a-color-tertiary');
+    expect(categoryElement).toBeTruthy();
+    const categoryText = await categoryElement.textContent();
+    expect(categoryText).toContain('Electronics');
+  });
+
+  test('TC_priceCheck_VerifyProductImages_ShouldLoadCorrectly', async () => {
+    await amazon.searchProduct('Sony WH-1000XM5');
+    const imageElement = await page.$('.s-image');
+    expect(imageElement).toBeTruthy();
+    const imageSrc = await imageElement.getAttribute('src');
+    expect(imageSrc).toBeTruthy();
+  });
+
+  test('TC_priceCheck_VerifyProductSorting_ShouldSortByPrice', async () => {
+    await amazon.searchProduct('laptop');
+    await page.waitForSelector('#s-result-sort-select', { timeout: 10000 });
+    await page.selectOption('#s-result-sort-select', 'Price: Low to High');
+    await page.waitForSelector('.s-result-item', { timeout: 10000 });
+    const prices = await page.$$eval('.a-price .a-offscreen', els => els.map(el => el.textContent));
+    const sortedPrices = [...prices].sort((a, b) => parseFloat(a.replace(/[^0-9.-]+/g, '')) - parseFloat(b.replace(/[^0-9.-]+/g, '')));
+    expect(prices).toEqual(sortedPrices);
+  });
+
+  test('TC_priceCheck_VerifyProductFilters_ShouldApplyBrandFilter', async () => {
+    await amazon.searchProduct('headphones');
+    await page.waitForSelector('#brandsRefinements', { timeout: 10000 });
+    await page.click('#brandsRefinements');
+    await page.waitForSelector('text=Samsung', { timeout: 10000 });
+    await page.click('text=Samsung');
+    await page.waitForSelector('.s-result-item', { timeout: 10000 });
+    const titles = await page.$$eval('.a-size-medium', els => els.map(el => el.textContent));
+    expect(titles.some(title => title.includes('Samsung'))).toBeTruthy();
+  });
 });
