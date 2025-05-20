@@ -132,6 +132,51 @@ Contributions are welcome! Please fork the repository, create a feature branch, 
 3. Update documentation for new features
 4. Keep the code modular and maintainable
 
+## Docker Support
+
+### Building and Running with Docker
+
+1. Build the Docker image:
+   ```bash
+   docker build -t amazon-price-tracker .
+   ```
+
+2. Run the container:
+   ```bash
+   docker run amazon-price-tracker
+   ```
+
+### Docker Configuration Details
+
+The project includes a `Dockerfile` with the following features:
+- Uses Node.js 18 slim image for smaller size
+- Installs only Chromium browser to reduce image size
+- Sets up proper working directory and environment variables
+- Optimizes layer caching for faster builds
+- Includes all necessary dependencies for Playwright
+
+### Docker Commands Reference
+
+1. Build with specific tag:
+   ```bash
+   docker build -t amazon-price-tracker:v1.0 .
+   ```
+
+2. Run in interactive mode:
+   ```bash
+   docker run -it amazon-price-tracker
+   ```
+
+3. Run with volume mounting (for development):
+   ```bash
+   docker run -v $(pwd):/app amazon-price-tracker
+   ```
+
+4. View container logs:
+   ```bash
+   docker logs <container_id>
+   ```
+
 ---
 
 Happy automating! 🛒🤖
