@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const AmazonSearchPage = require('./pages/amazon-search.page');
+const AmazonSearchPage = require('../pages/amazon-search.page');
 
 // Utility to extract price as a number from a string like '₹1,19,900'
 function parsePrice(priceStr) {
@@ -64,7 +64,7 @@ test.describe('Amazon Product Price & Search Tests', () => {
   });
 
   for (const { name, maxPrice, keywords } of products) {
-    test(`should find ${name} and price should be below ₹${maxPrice.toLocaleString()}`, async () => {
+    test(`TC_priceSearch_Verify${name.replace(/\s/g, '')}_PriceBelow${maxPrice}_AndRelevantTitles`, async () => {
       // Search for the product
       await amazon.searchProduct(name);
       
@@ -106,7 +106,7 @@ test.describe('Amazon Product Price & Search Tests', () => {
     });
   }
 
-  test('should return at least 5 results for "laptop" search', async () => {
+  test('TC_priceSearch_VerifyLaptopSearch_ShouldReturnAtLeast5Results', async () => {
     await amazon.searchProduct('laptop');
     
     const titleSelectors = [
@@ -128,7 +128,7 @@ test.describe('Amazon Product Price & Search Tests', () => {
     expect(titles.length).toBeGreaterThanOrEqual(5);
   });
 
-  test('should find a rating for the first MacBook Air result', async () => {
+  test('TC_priceSearch_VerifyMacBookAirRating_ShouldFindRatingForFirstResult', async () => {
     await amazon.searchProduct('MacBook Air');
     const firstResult = await page.$('[data-component-type="s-search-result"]');
     

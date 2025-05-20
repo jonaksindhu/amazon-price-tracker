@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const AmazonSearchPage = require('./pages/amazon-search.page');
+const AmazonSearchPage = require('../pages/amazon-search.page');
 
 async function debugResults(page, selector) {
   // Print the number of matching elements
@@ -39,7 +39,7 @@ test.describe('Amazon Product Search Tests', () => {
     await amazonPage.navigate();
   });
 
-  test('should search for MacBook Pro on Amazon', async ({ page }) => {
+  test('TC_productSearch_VerifyMacBookProSearchResults_ShouldShowRelevantTitlesPriceAndRating', async ({ page }) => {
     const searchTerm = 'MacBook Pro';
     console.log(`Starting search for ${searchTerm}`);
     
@@ -79,7 +79,7 @@ test.describe('Amazon Product Search Tests', () => {
     }
   });
 
-  test('should search for iPhone 15 on Amazon', async ({ page }) => {
+  test('TC_productSearch_VerifyIPhone15SearchResults_ShouldShowRelevantTitlesPriceAndRating', async ({ page }) => {
     const searchTerm = 'iPhone 15';
     console.log(`Starting search for ${searchTerm}`);
     

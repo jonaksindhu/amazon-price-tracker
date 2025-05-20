@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const AmazonSearchPage = require('./pages/amazon-search.page');
+const AmazonSearchPage = require('../pages/amazon-search.page');
 
 // Utility to extract price as a number from a string like '₹1,19,900'
 function parsePrice(priceStr) {
@@ -50,7 +50,7 @@ test.describe('Amazon Product Price Check Tests', () => {
   });
 
   for (const { name, maxPrice, keywords } of products) {
-    test(`should find ${name} and price should be below ₹${maxPrice.toLocaleString()}`, async () => {
+    test(`TC_priceCheck_Verify${name.replace(/\s/g, '')}_PriceBelow${maxPrice}_AndRelevantTitles`, async () => {
       // Search for the product
       await amazon.searchProduct(name);
       
