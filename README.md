@@ -64,6 +64,8 @@ amazon-price-tracker/
 │   └── AmazonSearchPage.js
 ├── docker/                       # Docker configuration
 │   └── Dockerfile
+├── ci-cd/                        # CI/CD configuration
+│   └── Jenkinsfile
 ├── playwright.config.js          # Playwright configuration
 └── package.json
 ```
